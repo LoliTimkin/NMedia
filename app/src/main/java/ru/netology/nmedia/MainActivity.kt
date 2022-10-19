@@ -10,24 +10,30 @@ class MainActivity : AppCompatActivity() {
         //setContentView(R.layout.activity_main)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val viewModel: PostViewModel by viewModels()
 
-        val post = Post(
-            id = 1,
-            author = "Нетология. Университет интернет-профессий будущего",
-            content = "Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку перемен → http://netolo.gy/fyb",
-            published = "21 мая в 18:36",
-            likedByMe = false,
-            sharedByMe = true
-        )
-        binding.apply {
-            author.text = post.author
-            published.text = post.published
-            content.text = post.content
+        viewModel.data.observe(this ) { post ->
+            with(binding) {
+                author.text = post.author
+                published.text = post.published
+                content.text = post.content
 
-            if (post.likedByMe) {
-                imageLikes?.setImageResource(R.drawable.ic_baseline_favorite_24)
+                imageLikes.setImageResource(
+                    if (post.likedByMe)
+                        R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
+                )
             }
-            likesAmount?.text = post.likes.toString()
+
+            binding.imageLikes.setOnClickListener {
+                viewModel.like()
+            }
+        }
+
+
+        //if (post.likedByMe) {
+            //imageLikes?.setImageResource(R.drawable.ic_baseline_favorite_24)
+        //}
+        //    likesAmount?.text = post.likes.toString()
 
             //root.setOnClickListener {
             //    Log.d("stuff", "stuff")
@@ -37,38 +43,28 @@ class MainActivity : AppCompatActivity() {
             //    Log.d("stuff", "avatar")
             //}
 
-            imageLikes?.setOnClickListener {
+            //imageLikes?.setOnClickListener {
                 //Log.d("stuff", "like")
-                post.likedByMe = !post.likedByMe
-                imageLikes.setImageResource(
-                    if (post.likedByMe) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
-                )
+             //   post.likedByMe = !post.likedByMe
+            ////    imageLikes.setImageResource(
+             //       if (post.likedByMe) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
+              //  )
 
-                if (post.likedByMe) post.likes++ else post.likes--
-                likesAmount?.text = post.likes.toString()
-            }
+             //   if (post.likedByMe) post.likes++ else post.likes--
+             //   likesAmount?.text = post.likes.toString()
+            //}
 
-            sharesAmount.text = post.shared.toString()
+            ////sharesAmount.text = post.shared.toString()
 
-            imageShare?.setOnClickListener {
-                if (post.sharedByMe) post.shared++
-                sharesAmount?.text = ToConvert(post.shared)
+            ////imageShare?.setOnClickListener {
+             //   if (post.sharedByMe) post.shared++
+            //    sharesAmount?.text = ToConvert(post.shared)
 
-            }
+            //}
 
-        }
+        //}
     }
-    data class Post(
-        val id: Int,
-        val author: String,
-        val content: String,
-        val published: String,
-        var likedByMe: Boolean,
-        var sharedByMe: Boolean,
-        var likes: Int = 0,
-        var shared: Int = 995,
 
-    )
 
 
     fun ToConvert(count: Int): String  {
