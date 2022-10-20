@@ -2,6 +2,7 @@ package ru.netology.nmedia
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import ru.netology.nmedia.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -22,19 +23,20 @@ class MainActivity : AppCompatActivity() {
                     if (post.likedByMe)
                         R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
                 )
+
+                imageLikes.setOnClickListener {
+                    viewModel.like()
+                }
+
+                imageShare.setOnClickListener {
+                    viewModel.share()
+                }
+
+                likesAmount.text = toConvert(post.likes)
+                sharesAmount.text = toConvert(post.shared)
             }
 
-            binding.imageLikes.setOnClickListener {
-                viewModel.like()
-            }
         }
-
-
-        //if (post.likedByMe) {
-            //imageLikes?.setImageResource(R.drawable.ic_baseline_favorite_24)
-        //}
-        //    likesAmount?.text = post.likes.toString()
-
             //root.setOnClickListener {
             //    Log.d("stuff", "stuff")
             //}
@@ -45,29 +47,12 @@ class MainActivity : AppCompatActivity() {
 
             //imageLikes?.setOnClickListener {
                 //Log.d("stuff", "like")
-             //   post.likedByMe = !post.likedByMe
-            ////    imageLikes.setImageResource(
-             //       if (post.likedByMe) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
-              //  )
-
-             //   if (post.likedByMe) post.likes++ else post.likes--
-             //   likesAmount?.text = post.likes.toString()
             //}
-
-            ////sharesAmount.text = post.shared.toString()
-
-            ////imageShare?.setOnClickListener {
-             //   if (post.sharedByMe) post.shared++
-            //    sharesAmount?.text = ToConvert(post.shared)
-
-            //}
-
-        //}
     }
 
 
 
-    fun ToConvert(count: Int): String  {
+    fun toConvert(count: Int): String  {
         return when (count) {
             in 0..999 -> count.toString()
             in 1_000..10_000 ->  convert1K(count)
