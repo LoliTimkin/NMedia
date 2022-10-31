@@ -31,7 +31,14 @@ class PostRepositoryInMemoryImpl: PostRepository {
     override fun getAll(): LiveData<List<Post>> = data
 
     override fun likeById(id: Long) {
-        posts = posts.map { if (it.id != id) it else it.copy(likedByMe = !it.likedByMe) }
+        posts = posts.map {
+            if (it.id != id) it
+            else {
+                it.copy(likedByMe = !it.likedByMe,
+                        likes = if(it.likedByMe) it.likes + 1 else it.likes - 1
+                )
+             }
+        }
         data.value = posts
     }
 

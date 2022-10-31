@@ -52,45 +52,4 @@ class MainActivity : AppCompatActivity() {
                 //Log.d("stuff", "like")
             //}
 
-
-
-
-    fun toConvert(count: Int): String  {
-        return when (count) {
-            in 0..999 -> count.toString()
-            in 1_000..10_000 ->  convert1K(count)
-            in 10_000..1000_000 ->  convert1M(count)
-            else ->  "значение вне диапозона"
-        }
-    }
-
-    fun convert1K(count: Int): String {
-        val thousands =  count / 1_000
-        if (count % 1_000 > 0) {
-            val hundredth = count - thousands * 1_000
-            val decimal = when (hundredth) {
-                100 -> 1
-                200 -> 2
-                300 -> 3
-                400 -> 4
-                500 -> 5
-                600 -> 6
-                700 -> 7
-                800 -> 8
-                900 -> 9
-                else ->  0
-            }
-
-        return if (decimal != 0) "$thousands,$hundredth K" else "$thousands K"
-
-        }
-        else return "$thousands K"
-
-    }
-
-    fun convert1M (count: Int): String {
-        val millions: Int = count / 1_000_000
-        return "$millions K"
-    }
-
 }
