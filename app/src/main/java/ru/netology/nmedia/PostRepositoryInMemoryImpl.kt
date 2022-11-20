@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 class PostRepositoryInMemoryImpl: PostRepository {
-
+    private var nextId = 1L
     private var posts = listOf(
         Post(
             id = 1,
@@ -30,6 +30,27 @@ class PostRepositoryInMemoryImpl: PostRepository {
 
     override fun getAll(): LiveData<List<Post>> = data
 
+    override fun save(post: Post) {
+        if(post.id == 0L) {
+            // TODO: remove hardcoded author & published
+            posts = listOf(
+                post.copy (
+                    id = nextId++,
+                    author = "Me" ,
+                    published = "now",
+                    likedByMe = false
+                )
+            ) + posts
+            data.value = posts
+            return
+        }
+
+        posts = posts.map {
+            if (it.id != post.id) it else it.copy(content = post.content)
+        }
+        data.value = posts
+    }
+
     override fun likeById(id: Long) {
         posts = posts.map {
             if (it.id != id) it
@@ -46,4 +67,11 @@ class PostRepositoryInMemoryImpl: PostRepository {
         posts = posts.map { if (it.id != id) it else it.copy(shared = it.shared++) }
         data.value = posts
     }
+
+    override fun removeById(id: Long) {
+        posts.filter { it.id != id }
+        data.value = posts
+    }
+
+
 }
