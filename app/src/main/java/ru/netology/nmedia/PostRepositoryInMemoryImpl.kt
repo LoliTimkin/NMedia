@@ -13,7 +13,8 @@ class PostRepositoryInMemoryImpl: PostRepository {
             published = "21 мая в 18:36",
             likedByMe = false,
             sharedByMe = true,
-            shared = 0
+            shared = 0,
+            video = null
         ),
         Post(
             id = 2,
@@ -22,7 +23,8 @@ class PostRepositoryInMemoryImpl: PostRepository {
             published = "21 мая в 18:37",
             likedByMe = false,
             sharedByMe = true,
-            shared = 0
+            shared = 0,
+            video = null
         ),
     )
 

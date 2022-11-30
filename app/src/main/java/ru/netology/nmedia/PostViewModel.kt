@@ -8,7 +8,8 @@ private val empty = Post(
     author = "" ,
     content = "",
     published = "",
-    likedByMe = false
+    likedByMe = false,
+    video = null
 )
 
 class PostViewModel() : ViewModel() {
