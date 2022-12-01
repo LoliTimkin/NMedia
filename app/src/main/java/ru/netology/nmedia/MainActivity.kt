@@ -112,6 +112,16 @@ class MainActivity : AppCompatActivity() {
             newPostLauncher.launch()
         }
 
+        val editPostLauncher = registerForActivityResult(EditPostResultContract()) { result ->
+            result ?: return@registerForActivityResult
+            viewModel.changeContent(result)
+            viewModel.save()
+        }
+
+       // binding.fab.setOnClickListener {
+        //    editPostLauncher.launch()
+       // }
+
     }
 
 }
