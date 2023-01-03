@@ -5,6 +5,7 @@ import android.nfc.cardemulation.CardEmulation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.launch
 import androidx.activity.viewModels
@@ -116,6 +117,7 @@ class MainActivity : AppCompatActivity() {
             result ?: return@registerForActivityResult
             viewModel.changeContent(result)
             viewModel.save()
+
         }
 
        // binding.fab.setOnClickListener {
