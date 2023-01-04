@@ -80,9 +80,14 @@ class PostViewHolder(
                 }.show()
 
             }
+
             imageLikes.setOnClickListener {
                 onInteractionListener.onLike(post)
             }
+            imagePreviewVideo.setOnClickListener {
+
+            }
+
         }
     }
 }

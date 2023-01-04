@@ -34,12 +34,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@sample/posts_avatars" />
+
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck">
+
     <Button
         android:id="@+id/menu"
         android:layout_width="wrap_content"
@@ -75,12 +77,20 @@
         tools:text="@sample/posts.json/data/content"
         />
 
+    <ImageView
+        android:id="@+id/imagePreviewVideo"
+        android:layout_width="512px"
+        android:layout_height="512px"
+        app:layout_constraintTop_toBottomOf="@id/content"
+        app:layout_constraintBottom_toTopOf="@id/barrierBottom"
+        app:srcCompat="@drawable/video" />
+
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrierBottom"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="128dp"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="content " />
+        app:constraint_referenced_ids="imagePreviewVideo" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/imageLikes"
@@ -138,5 +148,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="100" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
