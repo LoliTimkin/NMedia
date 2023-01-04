@@ -24,7 +24,7 @@ class PostRepositoryInMemoryImpl: PostRepository {
             likedByMe = false,
             sharedByMe = true,
             shared = 0,
-            video = null
+            video = "https://www.youtube.com/watch?v=WhWc3b3KhnY"
         ),
     )
 
