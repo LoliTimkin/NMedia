@@ -11,18 +11,26 @@ class EditPostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityEditPostBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_edit_post)
-
+        binding.edit.requestFocus()
         binding.edit.setOnClickListener {
-            val intent = Intent()
-            if (binding.edit.text.isNullOrBlank()) {
-                setResult(Activity.RESULT_CANCELED, intent)
-            } else {
-                val content = binding.edit.text.toString()
-                intent.putExtra(Intent.EXTRA_TEXT, content)
-                setResult(Activity.RESULT_OK, intent)
-            }
-            finish()
+            intent?.let {
+                if (it.action != Intent.ACTION_SEND) {
+                    return@let
+                }
 
+                val text = it.getStringExtra(Intent.EXTRA_TEXT)
+                //if (text.isNullOrBlank()) {
+                    //snackbar.make(binding.root, R.string.error_empty_content, LENGTH_IDEFINITE)
+                     //   .setAction(android.R.string.ok) {
+                            finish()
+                 //       }
+                 //       .show()
+                //    return@let
+              //  }
+            }
         }
     }
+
 }
+
+
