@@ -31,10 +31,10 @@ class MainActivity : AppCompatActivity() {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, post.content)
                     type = "text/plain"
+
                     startActivity(intent)
                 }
             }
-
             override fun onLike(post: Post) {
                 viewModel.likeById(post.id)
             }
@@ -115,8 +115,12 @@ class MainActivity : AppCompatActivity() {
             result ?: return@registerForActivityResult
             viewModel.changeContent(result)
             viewModel.save()
-
         }
+
+       // binding.edit.setOnClickListener {
+        //    editPostLauncher.launch()
+       // }
+
 
     }
 

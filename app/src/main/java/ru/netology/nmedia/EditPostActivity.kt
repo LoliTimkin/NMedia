@@ -17,16 +17,7 @@ class EditPostActivity : AppCompatActivity() {
                 if (it.action != Intent.ACTION_SEND) {
                     return@let
                 }
-
-                val text = it.getStringExtra(Intent.EXTRA_TEXT)
-                //if (text.isNullOrBlank()) {
-                    //snackbar.make(binding.root, R.string.error_empty_content, LENGTH_IDEFINITE)
-                     //   .setAction(android.R.string.ok) {
-                            finish()
-                 //       }
-                 //       .show()
-                //    return@let
-              //  }
+                val text = intent?.getStringExtra(Intent.EXTRA_TEXT)
             }
         }
     }
