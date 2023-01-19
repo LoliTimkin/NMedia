@@ -13,6 +13,7 @@ tools:context=".NewPostActivity">
     android:gravity="start|top"
     android:inputType="textMultiLine"
     android:background="@android:color/transparent"
+    tools:text="сюда набирается текст"
     />
 
 <com.google.android.material.bottomappbar.BottomAppBar

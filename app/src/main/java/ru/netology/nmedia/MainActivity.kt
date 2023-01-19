@@ -24,16 +24,16 @@ class MainActivity : AppCompatActivity() {
 
         val viewModel: PostViewModel by viewModels()
 
+        val editPostLauncher = registerForActivityResult(EditPostResultContract()) { result ->
+            result ?: return@registerForActivityResult
+            viewModel.changeContent(result)
+            viewModel.save()
+        }
+        
         val adapter = PostsAdapter(object : OnInteractionListener {
 
             override fun onEdit(post: Post) {
-                val intent = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, post.content)
-                    type = "text/plain"
-
-                    startActivity(intent)
-                }
+                editPostLauncher.launch(post.content)
             }
             override fun onLike(post: Post) {
                 viewModel.likeById(post.id)
@@ -110,16 +110,6 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener {
             newPostLauncher.launch()
         }
-
-        val editPostLauncher = registerForActivityResult(EditPostResultContract()) { result ->
-            result ?: return@registerForActivityResult
-            viewModel.changeContent(result)
-            viewModel.save()
-        }
-
-       // binding.edit.setOnClickListener {
-        //    editPostLauncher.launch()
-       // }
 
 
     }

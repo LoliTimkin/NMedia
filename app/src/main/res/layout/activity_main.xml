@@ -66,9 +66,8 @@
 
     <ImageButton
         android:id="@+id/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_spacing"
+        android:layout_width="42dp"
+        android:layout_height="47dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/description_post_like"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -11,8 +11,8 @@ class NewPostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityNewPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.edit.requestFocus()
-        binding.ok.setOnClickListener {
+        binding.ok.requestFocus()
+        binding.edit.setOnClickListener {
             val intent = Intent()
             if (binding.edit.text.isNullOrBlank()) {
                 setResult(Activity.RESULT_CANCELED, intent)
