@@ -54,5 +54,19 @@ class PostRepositorySQLiteImpl(
         posts = posts.map { if (it.id != id) it else it.copy(shared = it.shared++) }
         data.value = posts
     }
+
+    override fun edit(post: Post) {
+        val id = post.id
+        val edited = dao.save(post)
+        posts = if (id == 0L) {
+            listOf(edited) + posts
+        } else {
+            posts.map {
+                if (it.id != id) it else edited
+            }
+        }
+        data.value = posts
+    }
+
 }
 
