@@ -112,6 +112,48 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
         )
     }
 
+    override fun shareById(id: Long) {
+        db.execSQL(
+            """
+                UPDATE posts SET
+                    shareById = shareById + 1 
+                WHERE id = ?;
+        """.trimIndent(), arrayOf(id)
+        )
+    }
+
+    override fun edit(post: Post): Post {
+        val values = ContentValues().apply {
+            // TODO: remove hardcoded values
+            put(PostColumns.COLUMN_AUTHOR, "Me")
+            put(PostColumns.COLUMN_CONTENT, post.content)
+            put(PostColumns.COLUMN_PUBLISHED, "now")
+        }
+        val id = if (post.id != 0L) {
+            db.update(
+                PostColumns.TABLE,
+                values,
+                "${PostColumns.COLUMN_ID} = ?",
+                arrayOf(post.id.toString()),
+            )
+            post.id
+        } else {
+            db.insert(PostColumns.TABLE, null, values)
+        }
+        db.query(
+            PostColumns.TABLE,
+            PostColumns.ALL_COLUMNS,
+            "${PostColumns.COLUMN_ID} = ?",
+            arrayOf(id.toString()),
+            null,
+            null,
+            null,
+        ).use {
+            it.moveToNext()
+            return map(it)
+        }
+    }
+
     private fun map(cursor: Cursor): Post {
         with(cursor) {
             return Post(
@@ -127,13 +169,4 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDao {
         }
     }
 
-    override fun shareById(id: Long) {
-        db.execSQL(
-            """
-                UPDATE posts SET
-                    shareById = shareById + 1 
-                WHERE id = ?;
-        """.trimIndent(), arrayOf(id)
-        )
-    }
 }
