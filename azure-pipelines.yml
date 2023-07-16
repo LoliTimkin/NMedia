@@ -1,26 +1,11 @@
-name: CI
-
-on:
-  push:
-    branches: '*'
-  pull_request:
-    branches: '*'
-
-jobs:
-  build:
-    runs-on: ubuntu-20.04
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Build
-        run: |
-          chmod +x ./gradlew
-          ./gradlew build
-
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: app-debug.apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+- task: Gradle@3
+  inputs:
+    gradleWrapperFile: 'gradlew'
+    tasks: 'build'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    sonarQubeRunAnalysis: true
+    sqGradlePluginVersionChoice: 'specify'
+    sonarQubeGradlePluginVersion: '2.6.1'
+    spotBugsAnalysis: false
